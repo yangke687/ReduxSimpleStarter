@@ -8,6 +8,7 @@ const API_KEY = "AIzaSyC4Iqc1wb5oW_8CcTlqBlV-w4wTtB2-11E";
 
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
+import VideoDetails from './components/video_details';
 
 // create a new component
 // this component should produce some HTML
@@ -31,6 +32,7 @@ class App extends Component {
 		return (
 			<div>
 				<SearchBar />
+				<VideoDetails video={this.state.videos[0]} />
 				<VideoList videos={this.state.videos}/>
 			</div>
 		);

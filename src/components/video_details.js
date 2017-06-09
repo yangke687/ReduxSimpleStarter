@@ -4,7 +4,13 @@ import React, {
 
 class VideoDetails extends Component {
 	render() {
-		const videoId = this.props.id.videoId;
+		// handling null props
+		console.log(this.props.video);
+		if (!this.props.video) {
+			return <div>Loading...</div>;
+		}
+
+		const videoId = this.props.video.id.videoId;
 		const url = `https://www.youtube.com/embed/${videoId}`;
 		return (
 			<div className="video-detail col-md-8">
@@ -12,8 +18,8 @@ class VideoDetails extends Component {
 					<iframe className="embed-responsive-item" src={url}></iframe>
 				</div>
 				<div className="details">
-					<div>{this.props.snippet.title}</div>
-					<div>{this.props.snippet.description}</div>
+					<div>{this.props.video.snippet.title}</div>
+					<div>{this.props.video.snippet.description}</div>
 				</div>
 			</div>
 		);
