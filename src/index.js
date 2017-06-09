@@ -16,7 +16,8 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			videos: []
+			videos: [],
+			selectedVidel: null
 		};
 		// fetching searching results
 		ytSearch({
@@ -24,16 +25,24 @@ class App extends Component {
 			term: 'surfboards',
 		}, function(videos) {
 			this.setState({
-				videos
+				videos: videos,
+				selectedVideo: videos[0]
 			});
 		}.bind(this));
+	}
+	onVideoSelect(selectedVideo) {
+		this.setState({
+			selectedVideo
+		});
 	}
 	render() {
 		return (
 			<div>
 				<SearchBar />
-				<VideoDetails video={this.state.videos[0]} />
-				<VideoList videos={this.state.videos}/>
+				<VideoDetails video={this.state.selectedVideo} />
+				<VideoList 
+					onVideoSelect={this.onVideoSelect.bind(this)}
+					videos={this.state.videos}/>
 			</div>
 		);
 	}

@@ -5,13 +5,13 @@ import React, {
 class VideoListItem extends Component {
 	render() {
 		return (
-			<li className="list-group-item">
+			<li className="list-group-item" onClick={this.props.onVideoSelect.bind(null,this.props.video)}>
 				<div className="video-list media">
 					<div className="media-left">
-						<img className="media-object" src={this.props.snippet.thumbnails.default.url} />
+						<img className="media-object" src={this.props.video.snippet.thumbnails.default.url} />
 					</div>
 					<div className="media-body">
-						<div className="media-heading">{this.props.snippet.title}</div>
+						<div className="media-heading">{this.props.video.snippet.title}</div>
 					</div>
 				</div>
 			</li>

@@ -9,7 +9,10 @@ class VideoList extends Component {
 		return (
 			<ul className="col-md-4 list-group">
 				{this.props.videos.map((video,i)=>{
-					return <VideoListItem {...video} key={video.etag} />;
+					return (<VideoListItem 
+						onVideoSelect={this.props.onVideoSelect}
+						video={video}
+						key={video.etag} />);
 				})}
 			</ul>
 		);
