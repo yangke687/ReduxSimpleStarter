@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, {
 	Component
 } from 'react';
@@ -27,8 +28,10 @@ class App extends Component {
 			selectedVideo
 		});
 	}
-	onSearchTermChange(term) {
-		this.videoSearch(term);
+	onVideoTermChange(term) {
+		return _.debounce(function(term) {
+			this.videoSearch(term);
+		}.bind(this), 300);
 	}
 	videoSearch(term) {
 		ytSearch({
@@ -42,9 +45,12 @@ class App extends Component {
 		}.bind(this));
 	}
 	render() {
+		// const videoSearch = _.debounce((term) => {
+		// 	this.videoSearch(term)
+		// }, 300);
 		return (
 			<div>
-				<SearchBar onSearchTermChange={this.onSearchTermChange.bind(this)} />
+				<SearchBar onSearchTermChange={this.onVideoTermChange.bind(this)()} />
 				<VideoDetails video={this.state.selectedVideo} />
 				<VideoList 
 					onVideoSelect={this.onVideoSelect.bind(this)}
