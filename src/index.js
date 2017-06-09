@@ -19,10 +19,21 @@ class App extends Component {
 			videos: [],
 			selectedVidel: null
 		};
-		// fetching searching results
+		// initial searching
+		this.videoSearch('surfboards');
+	}
+	onVideoSelect(selectedVideo) {
+		this.setState({
+			selectedVideo
+		});
+	}
+	onSearchTermChange(term) {
+		this.videoSearch(term);
+	}
+	videoSearch(term) {
 		ytSearch({
 			key: API_KEY,
-			term: 'surfboards',
+			term: term,
 		}, function(videos) {
 			this.setState({
 				videos: videos,
@@ -30,15 +41,10 @@ class App extends Component {
 			});
 		}.bind(this));
 	}
-	onVideoSelect(selectedVideo) {
-		this.setState({
-			selectedVideo
-		});
-	}
 	render() {
 		return (
 			<div>
-				<SearchBar />
+				<SearchBar onSearchTermChange={this.onSearchTermChange.bind(this)} />
 				<VideoDetails video={this.state.selectedVideo} />
 				<VideoList 
 					onVideoSelect={this.onVideoSelect.bind(this)}

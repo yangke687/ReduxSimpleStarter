@@ -6,7 +6,7 @@ class SearchBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			term: 'Starting Value'
+			term: 'surfboards'
 		};
 	}
 
@@ -25,6 +25,9 @@ class SearchBar extends Component {
 		this.setState({
 			term: text
 		});
+		if (text) {
+			this.props.onSearchTermChange(text);
+		}
 	}
 }
 
