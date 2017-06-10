@@ -1,5 +1,5 @@
 export default function(state = null, action) {
-	// this state is not app state
+	// this state is not for app
 	// just state for this reducer
 	switch (action.type) {
 		case 'BOOK_SELECTED':
