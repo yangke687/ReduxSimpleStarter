@@ -14,6 +14,10 @@ export function fetchWeather(city) {
 	// return promise as a action payload
 	return {
 		type: FETCH_WEATHER,
+		// redux-promise will catch the payload (if payload is a promise, stop it)
+		// (if the payload isn't a promise, let it go)
+		// and until the promise resolves before hitting reducers
+		// this is what middleware does
 		payload: request
 	};
 }
