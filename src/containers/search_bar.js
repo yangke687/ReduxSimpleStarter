@@ -16,9 +16,13 @@ export default class SearchBar extends Component {
 			term: term
 		});
 	}
+	onFormSubmit(evt) {
+		evt.preventDefault();
+		// we need to go and fetch weather data
+	}
 	render() {
 		return (
-			<div className="input-group">
+			<form className="input-group" onSubmit={this.onFormSubmit}>
 				<input 
 					placeholder="Get a five day forcast in your favorite cities"
 					className="form-control"
@@ -28,7 +32,7 @@ export default class SearchBar extends Component {
 				<span className="input-group-btn">
 					<button type="submit" className="btn btn-secondary">Submit</button>
 				</span>
-			</div>
+			</form>
 		);
 	}
 }
