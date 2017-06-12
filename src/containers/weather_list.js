@@ -7,37 +7,38 @@ import {
 } from 'react-redux';
 
 import Chart from '../components/chart';
+import _ from 'lodash';
 
 class WeatherList extends Component {
 	renderWeather(cityData) {
 		//console.log(cityData);
-		const temps = cityData.list.map(weather => weather.main.temp);
+		const temps = _.map(cityData.list.map(weather => weather.main.temp), temp => temp - 273);
 		const pressures = cityData.list.map(weather => weather.main.pressure);
 		const humidities = cityData.list.map(weather => weather.main.humidity);
 		return (
 			<tr key={cityData.city.name}>
 				<td>{cityData.city.name}</td>
 				<td>
-					<Chart color='red' height='120' width='180' data={temps} />
+					<Chart color='red' height={120} width={180} data={temps} units='℃' />
 				</td>
 				<td>
-					<Chart color='green' height='120' width='180' data={pressures} />
+					<Chart color='green' height={120} width={180} data={pressures} units='hPa' />
 				</td>
 				<td>
-					<Chart color='blue' height='120' width='180' data={humidities} />
+					<Chart color='blue' height={120} width={180} data={humidities} units='%' />
 				</td>
 			</tr>
 		);
 	}
 	render() {
 		return (
-		<table className="table table-hover">
+			<table className="table table-hover">
 				<thead>
 					<tr>
 						<th>City</th>
-						<th>Temperature</th>
-						<th>Pressure</th>
-						<th>Humidity</th>
+						<th width="200">Temperature (℃)</th>
+						<th width="200">Pressure (hPa)</th>
+						<th width="200">Humidity (%)</th>
 					</tr>
 				</thead>
 				<tbody>
