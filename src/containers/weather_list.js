@@ -8,6 +8,7 @@ import {
 
 import Chart from '../components/chart';
 import _ from 'lodash';
+import GoogleMap from '../components/google_map';
 
 class WeatherList extends Component {
 	renderWeather(cityData) {
@@ -15,9 +16,17 @@ class WeatherList extends Component {
 		const temps = _.map(cityData.list.map(weather => weather.main.temp), temp => temp - 273);
 		const pressures = cityData.list.map(weather => weather.main.pressure);
 		const humidities = cityData.list.map(weather => weather.main.humidity);
+		// city lat,lng
+		const {
+			lon,
+			lat
+		} = cityData.city.coord;
 		return (
 			<tr key={cityData.city.name}>
-				<td>{cityData.city.name}</td>
+				<td>
+					<GoogleMap lat={lat} lon={lon} />
+					{cityData.city.name}
+				</td>
 				<td>
 					<Chart color='red' height={120} width={180} data={temps} units='℃' />
 				</td>
