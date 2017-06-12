@@ -6,10 +6,7 @@ import {
 	connect
 } from 'react-redux';
 
-import {
-	Sparklines,
-	SparklinesLine
-} from 'react-sparklines';
+import Chart from '../components/chart';
 
 class WeatherList extends Component {
 	renderWeather(cityData) {
@@ -21,26 +18,20 @@ class WeatherList extends Component {
 			<tr key={cityData.city.name}>
 				<td>{cityData.city.name}</td>
 				<td>
-					<Sparklines height={120} width={180} data={temps}>
-						<SparklinesLine color="red" />
-					</Sparklines>
+					<Chart color='red' height='120' width='180' data={temps} />
 				</td>
 				<td>
-					<Sparklines height={120} width={180} data={pressures}>
-						<SparklinesLine color="green" />
-					</Sparklines>
+					<Chart color='green' height='120' width='180' data={pressures} />
 				</td>
 				<td>
-					<Sparklines height={120} width={180} data={humidities}>
-						<SparklinesLine color="blue" />
-					</Sparklines>
+					<Chart color='blue' height='120' width='180' data={humidities} />
 				</td>
 			</tr>
 		);
 	}
 	render() {
 		return (
-			<table className="table table-hover">
+		<table className="table table-hover">
 				<thead>
 					<tr>
 						<th>City</th>
