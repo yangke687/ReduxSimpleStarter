@@ -12,6 +12,8 @@ import {
 
 import _ from 'lodash';
 
+import {Link} from 'react-router-dom';
+
 class PostsIndex extends Component {
 	componentDidMount() {
 		// fetching posts data
@@ -27,7 +29,12 @@ class PostsIndex extends Component {
 	render() {
 		return (
 			<div>
-				<h3>Posts Index</h3>
+				<div className="text-xs-right">
+					<Link className="btn btn-primary" to="/posts/new">
+						Add a Post
+					</Link>
+				</div>
+				<h3>Posts</h3>
 				<ul>
 					{this.renderPosts()}
 				</ul>
