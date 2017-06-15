@@ -23,8 +23,8 @@ class PostsNew extends Component {
 					name="title"
 					component={this.renderSingleField} />
 				<Field 
-					label="Tags"
-					name="tags"
+					label="Categories"
+					name="categories"
 					component={this.renderSingleField} />
 				<Field 
 					label="Post Content"
@@ -35,6 +35,33 @@ class PostsNew extends Component {
 	}
 }
 
+function validate(values){
+	// console.log(values);
+	const errors = {};
+
+	// validate the inputs from 'values'
+	if (values.title.length < 3) {
+		errors.title = "Enter a title that is at least 3 characters";
+	}
+
+	if (!values.title) {
+		errors.title = "Enter a title";
+	}
+
+	if (!values.categories) {
+		errors.categories = "Enter some categories";
+	}
+
+	if( !values.content ) {
+		errors.content = "Enter some contents please";
+	}
+
+	// if errors is empty, the form is fine to submit
+	// if errors has any properties , redux form assumes form is invalid
+	return errors;
+}
+
 export default reduxForm({
+	validate,
 	form: 'PostsNewForm' // just pass a unique string	
 })(PostsNew);
