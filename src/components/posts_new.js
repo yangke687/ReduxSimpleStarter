@@ -10,14 +10,22 @@ class PostsNew extends Component {
 		return (
 			<div className="form-group">
 				<label htmlFor="">{field.label}</label>
-				<input className="form-control" type="text" {...field.input} />
+				<input 
+					className="form-control" 
+					type="text" 
+					{...field.input} />
+				{field.meta.error}
 			</div>
 		);
 	}
 
+	handleSubmit(evt){
+		evt.preventDefault();
+	}
+
 	render() {
 		return (
-			<form>
+			<form onSubmit={this.handleSubmit}>
 				<Field 
 					label="Title"
 					name="title"
@@ -30,6 +38,7 @@ class PostsNew extends Component {
 					label="Post Content"
 					name="content"
 					component={this.renderSingleField} />
+				<button type="submit" className="btn btn-primary">Submit</button>
 			</form>
 		);
 	}
@@ -40,7 +49,7 @@ function validate(values){
 	const errors = {};
 
 	// validate the inputs from 'values'
-	if (values.title.length < 3) {
+	if (values.title && values.title.length < 3) {
 		errors.title = "Enter a title that is at least 3 characters";
 	}
 
