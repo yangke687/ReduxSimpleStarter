@@ -19,13 +19,15 @@ class PostsNew extends Component {
 		);
 	}
 
-	handleSubmit(evt){
-		evt.preventDefault();
+	onSubmit(values){
+		// this === component
+		console.log('values',values);
 	}
 
 	render() {
+		const { handleSubmit } = this.props;
 		return (
-			<form onSubmit={this.handleSubmit}>
+			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 				<Field 
 					label="Title"
 					name="title"
