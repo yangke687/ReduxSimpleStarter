@@ -12,15 +12,13 @@ class PostsIndex extends Component {
   }
   renderPosts() {
     return _.map(this.props.posts,
-      (post) => {
-        return post.title && (
-          <li className="list-group-item" key={post.id}>
-            <Link to={`/posts/${post.id}`}>
-              {post.title}
-            </Link>
-          </li>
-        );
-      });
+      post => post.title && (
+        <li className="list-group-item" key={post.id}>
+          <Link to={`/posts/${post.id}`}>
+            {post.title}
+          </Link>
+        </li>),
+    );
   }
   render() {
     return (
@@ -39,7 +37,7 @@ class PostsIndex extends Component {
 
 PostsIndex.propTypes = {
   fetchPosts: PropTypes.func,
-  posts: PropTypes.object
+  posts: PropTypes.object,
 };
 
 function mapStateToProps(state) {
