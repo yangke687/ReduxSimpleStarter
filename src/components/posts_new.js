@@ -1,83 +1,86 @@
-import React, { Component } from 'react'
-
-import { Field, reduxForm } from 'redux-form'
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-
 import { connect } from 'react-redux';
-
 import { createPost } from '../actions';
 
 class PostsNew extends Component {
+  onSubmit(values) {
+    const { history } = this.props;
+    this.props.createPost(values, () => {
+      history.push('/');
+    });
+  }
 
-  renderSingleField (field) {
-    const { meta:{touched, error } } = field
-    const className = `form-group ${touched && error ? 'has-danger' : ''}`
+  renderSingleField(field) {
+    const { meta: { touched, error } } = field;
+    const className = `form-group ${touched && error ? 'has-danger' : ''}`;
     return (
       <div className={className}>
-        <label htmlFor=''>
+        <label htmlFor="inputValue">
           {field.label}
         </label>
-        <input className='form-control' type='text' {...field.input} />
-        <div className='text-help'>
+        <input className="form-control" type="text" {...field.input} />
+        <div className="text-help">
           {touched ? error : null}
         </div>
       </div>
-    )
+    );
   }
 
-  onSubmit (values) {
-    // this === component
-    // console.log('values', values)
-    this.props.createPost(values);
-  }
-
-  render () {
-    const { handleSubmit } = this.props
-    console.log(handleSubmit);
+  render() {
+    const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <Field label='Title' name='title' component={this.renderSingleField} />
-        <Field label='Categories' name='categories' component={this.renderSingleField} />
-        <Field label='Post Content' name='content' component={this.renderSingleField} />
-        <button type='submit' className='btn btn-primary'>
+        <Field label="Title" name="title" component={this.renderSingleField} />
+        <Field label="Categories" name="categories" component={this.renderSingleField} />
+        <Field label="Post Content" name="content" component={this.renderSingleField} />
+        <button type="submit" className="btn btn-primary">
           Submit
         </button>
-        <Link to="/" className="btn btn-danger">Cancel</Link>
+        <Link to="/" className="btn btn-danger"> Cancel
+        </Link>
       </form>
-    )
+    );
   }
 }
 
-function validate (values) {
+PostsNew.propTypes = {
+  createPost: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  history: PropTypes.object.isRequired,
+};
+
+function validate(values) {
   // console.log(values)
-  const errors = {}
+  const errors = {};
 
   // validate the inputs from 'values'
   if (values.title && values.title.length < 3) {
-    errors.title = 'Enter a title that is at least 3 characters'
+    errors.title = 'Enter a title that is at least 3 characters';
   }
 
   if (!values.title) {
-    errors.title = 'Enter a title'
+    errors.title = 'Enter a title';
   }
 
   if (!values.categories) {
-    errors.categories = 'Enter some categories'
+    errors.categories = 'Enter some categories';
   }
 
   if (!values.content) {
-    errors.content = 'Enter some contents please'
+    errors.content = 'Enter some contents please';
   }
 
   // if errors is empty, the form is fine to submit
   // if errors has any properties , redux form assumes form is invalid
-  return errors
+  return errors;
 }
 
 export default reduxForm({
   validate,
-  form: 'PostsNewForm' // just pass a unique string	
+  form: 'PostsNewForm',
 })(
-  connect(null,{createPost})(PostsNew)
-)
+  connect(null, { createPost })(PostsNew),
+);
